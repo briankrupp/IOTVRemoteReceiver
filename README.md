@@ -2,10 +2,15 @@
 
 ## iOS Application
 
-### How to Use
+### Requirements
+
+To use this application, you do need the receiver. This has been tested for a TCL TV however it can be programmed for any TV. All you need is a IR receiver the original TV remote to capture the codes that are required.
+
+### How to Use iOS Application
 1. Simply swipe up, down, left, or right to send corresponding signals to TV
 2. Swipe up or down on lower right rectangle to control volume.
 3. Long press lower right rectangle to mute TV.
+4. Use buttons on top to go back, rewind, pause, fast forward, or program the star button to your choosing.
 
 ### Privacy Policy for iOS IOTVRemote
 
