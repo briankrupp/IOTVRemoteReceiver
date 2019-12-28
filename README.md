@@ -24,4 +24,4 @@ The receiver code here was tested on a ESP8266. The iOS Application IOTVRemote i
 
 The code is based on the following schematic:
 
-[!schematic](https://github.com/briankrupp/IOTVRemoteReceiver/blob/master/IRReceiver.png)
+![schematic](https://github.com/briankrupp/IOTVRemoteReceiver/blob/master/IRReceiver.png)
