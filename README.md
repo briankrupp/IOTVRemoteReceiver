@@ -19,3 +19,9 @@ We do not collect any information within this application and as such we do not 
 ## Receiever
 
 The receiver code here was tested on a ESP8266. The iOS Application IOTVRemote is used to send signals to the receiver which then broadcasts a signal using an infrared light to the TV.
+
+### Wiring Diagram
+
+The code is based on the following schematic:
+
+[!schematic](https://github.com/briankrupp/IOTVRemoteReceiver/blob/master/IRReceiver.png)
