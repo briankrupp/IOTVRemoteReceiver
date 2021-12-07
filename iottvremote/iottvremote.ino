@@ -1,4 +1,7 @@
 /* DIRECTIONS:
+ * 0a. Import library by searching for "IRremoteESP8266" (https://github.com/crankyoldgit/IRremoteESP8266)
+ * 0b. Import esp8266 in boards from here: https://github.com/esp8266/Arduino
+ * 0c. Choose esp8266 generic board
  * 1. Get new signals using IRdump program and using your TV remote
  * 2. Replace data for each button below that corresponds to IOTVRemote
  * 3. Enter SSID and Password below
@@ -8,23 +11,6 @@
 #include <IRsend.h>
 #include <IRtimer.h>
 #include <IRutils.h>
-#include <ir_Argo.h>
-#include <ir_Coolix.h>
-#include <ir_Daikin.h>
-#include <ir_Fujitsu.h>
-#include <ir_Gree.h>
-#include <ir_Haier.h>
-#include <ir_Kelvinator.h>
-#include <ir_LG.h>
-#include <ir_Magiquest.h>
-#include <ir_Midea.h>
-#include <ir_Mitsubishi.h>
-#include <ir_NEC.h>
-#include <ir_Panasonic.h>
-#include <ir_Samsung.h>
-#include <ir_Toshiba.h>
-#include <ir_Trotec.h>
-
 #include <ESP8266WiFi.h>
  
 const char* ssid = "ENTER_SSID_HERE";
@@ -178,7 +164,7 @@ void starButton() {
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   delay(10);
  
   Serial.print("Attempting connection to: ");
