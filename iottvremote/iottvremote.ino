@@ -15,6 +15,7 @@
  
 const char* ssid = "ENTER_SSID_HERE";
 const char* password = "ENTER_PSK_HERE";
+const char* hostname = "IOTReceiver";
 
 int IR_LED = 14; // GPPIO 14 D5
 WiFiServer server(80);
@@ -169,7 +170,8 @@ void setup() {
  
   Serial.print("Attempting connection to: ");
   Serial.println(ssid);
- 
+
+  WiFi.hostname(hostname);
   WiFi.begin(ssid, password);
  
   while (WiFi.status() != WL_CONNECTED) {
@@ -184,6 +186,7 @@ void setup() {
   Serial.print("Listening on the following IP, enter this into IOTVRemote: ");
   Serial.print(WiFi.localIP());
   irsend.begin();
+  
  
 }
  
