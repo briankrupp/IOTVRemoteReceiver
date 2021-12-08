@@ -170,7 +170,7 @@ void setup() {
  
   Serial.print("Attempting connection to: ");
   Serial.println(ssid);
-
+  WiFi.mode(WIFI_STA); // Must set mode to STA (station) so that it can set the hostname
   WiFi.hostname(hostname);
   WiFi.begin(ssid, password);
  
@@ -181,7 +181,7 @@ void setup() {
   Serial.println("Connected!");
  
   server.begin();
- 
+  Serial.printf("New hostname: %s\n", WiFi.hostname().c_str());
   // Print the IP address
   Serial.print("Listening on the following IP, enter this into IOTVRemote: ");
   Serial.print(WiFi.localIP());
