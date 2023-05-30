@@ -12,9 +12,10 @@
 #include <IRtimer.h>
 #include <IRutils.h>
 #include <ESP8266WiFi.h>
+#include "secrets.h"
  
-const char* ssid = "ENTER_SSID_HERE";
-const char* password = "ENTER_PSK_HERE";
+const char* ssid = SSID;
+const char* password = PASSWORD;
 const char* hostname = "IOTReceiver";
 
 int IR_LED = 14; // GPPIO 14 D5
@@ -193,12 +194,17 @@ void setup() {
 void loop() {
   // Check if a client has connected
   WiFiClient client = server.available();
+  
   if (!client) {
+    //Serial.println("Checking for manual control");
+    //delay(10);
     return;
   }
+  Serial.println("Client connected");
  
   while(!client.available()){
-    delay(1);
+    Serial.println("Waiting ...");
+    delay(100);
   }
  
   // Read the first line of the request
