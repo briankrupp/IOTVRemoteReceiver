@@ -16,9 +16,9 @@
  
 const char* ssid = SSID;
 const char* password = PASSWORD;
-const char* hostname = "IOTReceiver";
+const char* hostname = "IOTReceiver2";
 
-int IR_LED = 14; // GPPIO 14 D5
+int IR_LED = 5; // D1 -> GPPIO 5 , D5 -> GPIO 14
 WiFiServer server(80);
 decode_results results;
 IRsend irsend(IR_LED);
@@ -203,7 +203,7 @@ void loop() {
   Serial.println("Client connected");
  
   while(!client.available()){
-    Serial.println("Waiting ...");
+    //Serial.println("Waiting ...");
     delay(100);
   }
  
