@@ -23,11 +23,21 @@ WiFiServer server(80);
 decode_results results;
 IRsend irsend(IR_LED);
 
+// Setup pins for manual control
+int powerPin = 10;
+int leftPin = 13;
+int upPin = 12;
+int downPin = 14;
+int rightPin = 2;
+int selectPin = 4; // Bottom
+int menuPin = 0; // Top
+
 void power() {
   uint16_t rawData[135] = {8990, 4444,  576, 550,  574, 1656,  576, 550,  574, 1656,  576, 550,  576, 1654,  578, 1654,  576, 1654,  576, 1654,  576, 1656,  574, 1656,  576, 552,  574, 550,  576, 550,  574, 1656,  576, 1654,  574, 1656,  576, 1654,  576, 1652,  578, 550,  574, 1656,  576, 550,  576, 550,  576, 550,  576, 550,  576, 550,  576, 550,  576, 1654,  574, 550,  576, 1656,  574, 1656,  576, 1654,  576, 37718,  8986, 4444,  576, 550,  576, 1654,  578, 550,  576, 1654,  576, 550,  574, 1656,  576, 1654,  576, 1654,  576, 1654,  576, 1654,  576, 1656,  574, 552,  576, 552,  574, 552,  574, 1656,  574, 1654,  576, 1656,  574, 1656,  576, 1654,  576, 552,  574, 1654,  576, 552,  574, 552,  574, 1654,  576, 550,  576, 550,  576, 550,  574, 1654,  576, 552,  574, 1656,  574, 1654,  574, 552,  574};  // NEC 57E3E817
   uint32_t address = 0xC7EA;
   uint32_t command = 0x17;
   uint64_t data = 0x57E3E817;
+  Serial.println("Sending Power!");
   irsend.sendRaw(rawData, 135, 38); 
 }
 void downArrow() {
@@ -168,7 +178,23 @@ void starButton() {
 void setup() {
   Serial.begin(9600);
   delay(10);
- 
+
+  // pinMode(IR_LED, OUTPUT);
+  pinMode(powerPin, INPUT_PULLUP);
+  pinMode(leftPin, INPUT_PULLUP);
+  pinMode(upPin, INPUT_PULLUP);
+  pinMode(downPin, INPUT_PULLUP);
+  pinMode(rightPin, INPUT_PULLUP);
+  pinMode(selectPin, INPUT_PULLUP);
+  pinMode(menuPin, INPUT_PULLUP);
+
+  // Serial.println("Testing Light");
+  // for(int i = 0; i < 10; i++) {
+  //   digitalWrite(IR_LED, HIGH);
+  //   delay(500);
+  //   digitalWrite(IR_LED, LOW);
+  //   delay(500);
+  // }
   Serial.print("Attempting connection to: ");
   Serial.println(ssid);
   WiFi.mode(WIFI_STA); // Must set mode to STA (station) so that it can set the hostname
@@ -187,8 +213,6 @@ void setup() {
   Serial.print("Listening on the following IP, enter this into IOTVRemote: ");
   Serial.print(WiFi.localIP());
   irsend.begin();
-  
- 
 }
  
 void loop() {
@@ -196,15 +220,43 @@ void loop() {
   WiFiClient client = server.available();
   
   if (!client) {
-    //Serial.println("Checking for manual control");
-    //delay(10);
+    if (digitalRead(upPin) == LOW) {
+      Serial.println("Up selected");
+      upArrow();
+    }
+    else if (digitalRead(leftPin) == LOW) {
+      Serial.println("Left selected");
+      leftArrow();
+    }
+    else if (digitalRead(rightPin) == LOW) {
+      Serial.println("Right selected");
+      rightArrow();
+    }
+    else if (digitalRead(selectPin) == LOW) {
+      Serial.println("select selected");
+      okButton();
+    }
+    else if (digitalRead(menuPin) == LOW) {
+      Serial.println("menu selected");
+      menu();
+    }
+    else if (digitalRead(downPin) == LOW) {
+      Serial.println("Down selected");
+      downArrow();
+    }
+    else if (digitalRead(powerPin) == LOW) {
+      Serial.println("Power selected");
+      power();
+    }
+
+    delay(200);
     return;
   }
   Serial.println("Client connected");
  
   while(!client.available()){
     //Serial.println("Waiting ...");
-    delay(100);
+    //delay(100);
   }
  
   // Read the first line of the request
